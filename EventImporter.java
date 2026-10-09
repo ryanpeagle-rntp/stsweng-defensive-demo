@@ -24,6 +24,7 @@ public class EventImporter {
         possibleColors.add("green");
         for (String line : lines) {
             pass = true;
+            ArrayList<String> Reasons = new ArrayList<>(); 
             String[] values = line.split(",");
             try {
                 LocalDate date = LocalDate.parse(values[0].trim(), FORMAT);
@@ -33,16 +34,18 @@ public class EventImporter {
                 //Check if title is valid
                 if (title.isBlank()){
                     pass = false;
+                    Reasons.add("Invalid Title");
                 }
                 //Amount of values are not valid
                 if (values.length != 3) {
                     pass = false;
+                    Reasons.add("Not 3 values");
                 }
 
                 //Wrong colors
                 if (!possibleColors.contains(color)){
                     pass = false;
-
+                    Reasons.add("Invalid Color");
                 }
                 //Invalid date
                 //Naisuuu
@@ -53,8 +56,15 @@ public class EventImporter {
                 }
             }catch(Exception e){
                 pass = false;
+                Reasons.add("Invalid Date"); 
             }
-
+            if (pass == false) {
+                String errorMessage = String.join(", ", Reasons);
+                
+                System.out.println("Error at row: " + line);
+                System.out.println("Due to: " + errorMessage + "\n");
+                
+            }
         }
 
         return events;
