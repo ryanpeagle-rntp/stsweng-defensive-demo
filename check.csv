@@ -1,0 +1,9 @@
+dont terminate just because of one bad row 
+report the row and continue 
+validate rows have 3 values
+reject missing/inv dates
+reject blank titles
+accept only red green and blue0
+print a reason 
+continue
+report 
